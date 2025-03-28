@@ -13,10 +13,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{5E94F8DE-53DA-449F-AB46-6E2950A47F8A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Interview.Core", "src\Core\AI.Interview.Core.csproj", "{EDBD867C-F31F-433A-B4B0-3D076321DB03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E23AE999-58C4-4450-B03F-616D48679C24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.Interview.Tests", "test\AI.Interview.Tests.csproj", "{037B63B7-756E-4C01-8B0F-7E35D1D51DB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,11 +38,16 @@ Global
 		{EDBD867C-F31F-433A-B4B0-3D076321DB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDBD867C-F31F-433A-B4B0-3D076321DB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDBD867C-F31F-433A-B4B0-3D076321DB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{037B63B7-756E-4C01-8B0F-7E35D1D51DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{037B63B7-756E-4C01-8B0F-7E35D1D51DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{037B63B7-756E-4C01-8B0F-7E35D1D51DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{037B63B7-756E-4C01-8B0F-7E35D1D51DB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F0E2E73E-BFD7-4164-8732-DCD7108EA3D8} = {5E94F8DE-53DA-449F-AB46-6E2950A47F8A}
+		{037B63B7-756E-4C01-8B0F-7E35D1D51DB6} = {E23AE999-58C4-4450-B03F-616D48679C24}
 	EndGlobalSection
 EndGlobal
