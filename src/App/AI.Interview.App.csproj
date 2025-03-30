@@ -10,4 +10,10 @@
     <ProjectReference Include="..\Core\AI.Interview.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="SolentimHardwareAccessLayer">
+      <HintPath>..\..\ExternalAssemblies\SolentimHardwareAccessLayer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

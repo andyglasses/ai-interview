@@ -5,8 +5,95 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AI.Interview.App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="1000" MinHeight="450">
+  <Grid>
     <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid Grid.Row="0" Grid.Column="0" Visibility="{Binding IsRunning, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="30" />
+          <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="200" />
+          <ColumnDefinition Width="200" />
+          <ColumnDefinition Width="200" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0">Positional Units</Label>
+        <ComboBox Grid.Row="1" Grid.Column="0"
+                  ItemsSource="{Binding Path=PositionOptions, Mode=OneTime}"
+                  DisplayMemberPath="Key"
+                  SelectedValue="{Binding Path=PositionUnits}"
+                  SelectedValuePath="Value"
+                  Margin="2"/>
 
+        <Label Grid.Row="0" Grid.Column="1">Velocity Units</Label>
+        <ComboBox Grid.Row="1" Grid.Column="1"
+                  ItemsSource="{Binding Path=VelocityOptions, Mode=OneTime}"
+                  DisplayMemberPath="Key"
+                  SelectedValue="{Binding Path=VelocityUnits}"
+                  SelectedValuePath="Value"
+                  Margin="2"/>
+
+        <CheckBox Grid.Row="1" Grid.Column="2" Content="AutoRestart on Error" IsChecked="{Binding AutoRestartOnEmergencyStop}" />
+      </Grid>
+      <Grid Grid.Row="1" Grid.Column="0" Visibility="{Binding CanBoot, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="1" Grid.Column="1" Content="Boot" Command="{Binding BootCommand}" Margin="10"  Padding="10" FontSize="24" Cursor="Hand" />
+      </Grid>
+      <ScrollViewer Grid.Row="1" Grid.Column="0" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibilityConverter}}"
+                    HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+        <ItemsControl ItemsSource="{Binding AxisViewModels, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" >
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <local:Axis Width="230" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+        </ItemsControl>
+      </ScrollViewer>
     </Grid>
+    <Border BorderThickness="0" Background="#80000000" Visibility="{Binding HasError, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="1" Grid.Row="1" BorderBrush="LightGray" BorderThickness="1" CornerRadius="2" Padding="10"
+                Background="White">
+          <StackPanel Orientation="Vertical">
+            <Label FontSize="16" Foreground="DarkRed" FontWeight="Bold">An error has occurred</Label>
+            <Label Foreground="DarkRed"  Content="{Binding ErrorMessage, Mode=OneWay}" />
+            <Button Content="Resume" Command="{Binding RestartCommand}" Margin="10"  Padding="10" FontSize="24" Cursor="Hand" />
+          </StackPanel>
+        </Border>
+      </Grid>
+    </Border>
+  </Grid>
 </Window>

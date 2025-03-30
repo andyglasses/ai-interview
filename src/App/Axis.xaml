@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="AI.Interview.App.Axis"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AI.Interview.App"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="230">
+  <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="2" Margin="2" Padding="5" >
+    <StackPanel Orientation="Vertical">
+      <Label Content="{Binding Path=Name, Mode=OneWay}" FontSize="18" />
+      
+      <Border BorderBrush="DarkRed" BorderThickness="2" CornerRadius="1" 
+              Visibility="{Binding Path=State.HasError, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" >
+        <StackPanel>
+          <Label Content="⚠️ Axis in error state" FontSize="18" Foreground="DarkRed" Padding="5" />
+          <Label Content="{Binding Path=State.ErrorMessage}" FontSize="12" Foreground="DarkRed" Padding="5" />
+        </StackPanel>
+      </Border>
+
+
+
+      <Label FontSize="14" >
+        <TextBlock TextWrapping="Wrap">
+          Position: 
+          <Run>
+            <Run.Text>
+              <MultiBinding Converter="{StaticResource UnitConverter}">
+                <Binding Path="State.PositionInCounts" />
+                <Binding Path="DataContext.PositionUnits" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+              </MultiBinding>
+            </Run.Text>
+          </Run>
+          <Run Text="{Binding Path=DataContext.PositionUnits, Converter={StaticResource UnitNameConverter}, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+        </TextBlock>
+      </Label>
+      <Label FontSize="12">
+        <TextBlock TextWrapping="Wrap">
+          Min to Max: 
+          <Run>
+            <Run.Text>
+              <MultiBinding Converter="{StaticResource UnitConverter}">
+                <Binding Path="Capabilities.Position.MinInCounts" />
+                <Binding Path="DataContext.PositionUnits" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+              </MultiBinding>
+            </Run.Text>
+          </Run>          
+          to
+          <Run>
+            <Run.Text>
+              <MultiBinding Converter="{StaticResource UnitConverter}">
+                <Binding Path="Capabilities.Position.MaxInCounts" />
+                <Binding Path="DataContext.PositionUnits" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+              </MultiBinding>
+            </Run.Text>
+          </Run>
+        </TextBlock>
+      </Label>
+      <Label FontSize="10" Visibility="{Binding Path=UnknownPositionUnits, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
+        <TextBlock TextWrapping="Wrap">
+          [Axis hardware reporting in 
+          <Run Text="{Binding Path=Capabilities.SourcePositionUnits, Converter={StaticResource UnitNameConverter}}" />]
+        </TextBlock>
+      </Label>
+      
+      <Label FontSize="10" Foreground="DarkRed" Padding="5" 
+              Visibility="{Binding Path=UnknownPositionUnits, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" >
+        <TextBlock TextWrapping="Wrap">
+          [⚠️  Axis hardware reporting in Unknown Units.  Unit of 'Counts' assumed]
+        </TextBlock>
+      </Label>
+
+
+
+      <Label FontSize="14" >
+        <TextBlock TextWrapping="Wrap">
+          Velocity:
+          <Run>
+            <Run.Text>
+              <MultiBinding Converter="{StaticResource UnitConverter}">
+                <Binding Path="State.VelocityInCounts" />
+                <Binding Path="DataContext.VelocityUnits" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+              </MultiBinding>
+            </Run.Text>
+          </Run>          
+          <Run Text="{Binding Path=DataContext.VelocityUnits, Converter={StaticResource UnitNameConverter}, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+        </TextBlock>
+      </Label>
+      <Label FontSize="12">
+        <TextBlock TextWrapping="Wrap">
+          Min to Max: 
+          <Run>
+            <Run.Text>
+              <MultiBinding Converter="{StaticResource UnitConverter}">
+                <Binding Path="Capabilities.Velocity.MinInCounts" />
+                <Binding Path="DataContext.VelocityUnits" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+              </MultiBinding>
+            </Run.Text>
+          </Run>          
+          to
+          <Run>
+            <Run.Text>
+              <MultiBinding Converter="{StaticResource UnitConverter}">
+                <Binding Path="Capabilities.Velocity.MaxInCounts" />
+                <Binding Path="DataContext.VelocityUnits" RelativeSource="{RelativeSource AncestorType={x:Type Window}}" />
+              </MultiBinding>
+            </Run.Text>
+          </Run>
+        </TextBlock>
+      </Label>
+      <Label FontSize="10" Visibility="{Binding Path=UnknownVelocityUnits, Mode=OneWay, Converter={StaticResource InvertedBoolToVisibilityConverter}}">
+        <TextBlock TextWrapping="Wrap">
+          [Axis hardware reporting in 
+          <Run Text="{Binding Path=Capabilities.SourceVelocityUnits, Converter={StaticResource UnitNameConverter}}" />]
+        </TextBlock>
+      </Label>
+
+      <Label FontSize="10" Foreground="DarkRed" Padding="5" 
+              Visibility="{Binding Path=UnknownVelocityUnits, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" >
+        <TextBlock TextWrapping="Wrap">
+          [⚠️  Axis hardware reporting in Unknown Units.  Unit of 'Counts per Second' assumed]
+        </TextBlock>
+      </Label>
+
+
+    </StackPanel>
+  </Border>
+</UserControl>
